@@ -13,12 +13,16 @@ builder.Services.AddDbContext<GameContext>(options =>
 
 builder.Services.AddScoped<GameService>();
 
+var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins");
+
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowLocalhost4200",
-			policy => policy.WithOrigins("http://localhost:4200")
-											.AllowAnyMethod()
-											.AllowAnyHeader());
+    options.AddPolicy("AllowConfiguredOrigin", builder =>
+    {
+        builder.WithOrigins(allowedOrigins)
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
 });
 
 var app = builder.Build();
@@ -30,8 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//TODO:parametrizar
-app.UseCors("AllowLocalhost4200");
+app.UseCors("AllowConfiguredOrigin");
 
 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 AppContext.SetSwitch("System.Net.Http.EnableUnixDomainSocket", true);

@@ -11,7 +11,7 @@ GET /api/game/winners: Retrieve all winners history.
 API Collections to get history
 ```
 GET api/game/moves: Retrieve all moves.
-TODO:POST api/game/move: Create a new move.
+POST api/game/move: Create a new move.
 	body:
 	{
 		"Name": "String",
@@ -69,7 +69,15 @@ VALUES('Scissors', 'Paper')
 GO
 ```
 ---
+# Configuration
 Change the string connection appsettings.json
+
+For Connection String:
 ```json
 "DefaultConnection": "Server=tcp:localhost,1433;Database=GAME_OF_DRONES;User Id=sa;Password=StrongP@ssw0rd!;Encrypt=False;"
+```
+
+Allow cors:
+```json
+"AllowedOrigins": "http://localhost:4200"
 ```
