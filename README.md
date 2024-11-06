@@ -1,6 +1,31 @@
 # Game of Drones App
 This is a backend of Game of Drones developed by dotnet 8.0
 
+---
+## API Collections
+API Collections to get history
+```
+GET /api/game/winners: Retrieve all winners history.
+```
+
+API Collections to get history
+```
+GET api/game/moves: Retrieve all moves.
+TODO:POST api/game/move: Create a new move.
+	body:
+	{
+		"Name": "String",
+		"Kills": "Dog"
+	}
+PUT api/game/move/{id}: Update a move.
+	body:
+	{
+		"Name": "Dog",
+		"Kills": "Paper"
+	}
+
+DELETE api/game/move/{id}: Delete a move by ID.
+```
 
 ## Installation
 
@@ -44,27 +69,7 @@ VALUES('Scissors', 'Paper')
 GO
 ```
 ---
-## API Collections
-API Collections to get history
-```
-GET /api/game/winners: Retrieve all winners history.
-```
-
-API Collections to get history
-```
-GET api/game/moves: Retrieve all moves.
-TODO:POST api/game/move: Create a new move.
-	body:
-	{
-		"Name": "String",
-		"Kills": "Dog"
-	}
-PUT api/game/move/{id}: Update a move.
-	body:
-	{
-		"Name": "Dog",
-		"Kills": "Paper"
-	}
-
-DELETE api/game/move/{id}: Delete a move by ID.
+Change the string connection appsettings.json
+```json
+"DefaultConnection": "Server=tcp:localhost,1433;Database=GAME_OF_DRONES;User Id=sa;Password=StrongP@ssw0rd!;Encrypt=False;"
 ```
