@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using GameOfDrones.Models;
 using GameOfDrones.Services;
+using dotenv.net;
 
 namespace GameOfDronesApi.Controllers
 {
@@ -18,8 +19,8 @@ namespace GameOfDronesApi.Controllers
         [HttpGet("dbpath")]
         public string GetDbPath()
         {
+            DotEnv.Load();
             var dbPath = Environment.GetEnvironmentVariable("DB_PATH");
-            Console.WriteLine($"DB_PATH environment variable: {dbPath}");
             return dbPath;
         }
 
