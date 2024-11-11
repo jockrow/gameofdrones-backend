@@ -20,6 +20,7 @@ namespace GameOfDronesApi.Controllers
         {
             var dbPath = Environment.GetEnvironmentVariable("DB_PATH");
             Console.WriteLine($"DB_PATH environment variable: {dbPath}");
+            return dbPath;
         }
 
         [HttpGet("moves")]
