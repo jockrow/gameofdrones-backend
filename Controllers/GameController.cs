@@ -15,13 +15,11 @@ namespace GameOfDronesApi.Controllers
             _gameService = gameService;
         }
 
-        /*public Task<ActionResult<string>> GetDbPath()*/
         [HttpGet("dbpath")]
         public string GetDbPath()
         {
-            string dbPath = Path.Combine(Directory.GetCurrentDirectory(), "GAME_OF_DRONES.db");
-            /*return Ok(dbPath);*/
-            return dbPath;
+            var dbPath = Environment.GetEnvironmentVariable("DB_PATH");
+            Console.WriteLine($"DB_PATH environment variable: {dbPath}");
         }
 
         [HttpGet("moves")]
