@@ -1,6 +1,8 @@
 using GameOfDrones.Data;
 using GameOfDrones.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using dotenv.net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,12 +10,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<GameContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddScoped<GameService>();
 
 var allowedOrigins = builder.Configuration.GetValue<string>("AllowedOrigins");
+var configuration = builder.Configuration;
+DotEnv.Load();
+var dbPath = Environment.GetEnvironmentVariable("DOTNET_DB_PATH");
+
+var connectionString = configuration.GetConnectionString("DefaultConnection")
+                                     .Replace("{DOTNET_DB_PATH}", dbPath);
+builder.Services.AddDbContext<GameContext>(options =>
+    options.UseSqlite(connectionString));
 
 builder.Services.AddCors(options =>
 {
@@ -24,6 +31,7 @@ builder.Services.AddCors(options =>
                .AllowAnyHeader();
     });
 });
+
 
 var app = builder.Build();
 
